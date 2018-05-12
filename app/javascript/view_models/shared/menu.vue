@@ -1,6 +1,6 @@
 <template lang="pug">
-#fedeaux-org-app
-  shared-menu
+#app-menu.ui.inverted.menu
+  .ui.item
 </template>
 
 <script lang="coffee">

@@ -10,6 +10,8 @@
     "jquery-ui": "^1.12.1",
     "pug": "^2.0.3",
     "pug-plain-loader": "^1.0.0",
+    "resolve-url-loader": "^2.3.0",
+    "semantic-ui-sass": "^2.2.11",
     "underscore": "^1.9.0",
     "vue": "^2.5.16",
     "vue-color": "^2.4.6",

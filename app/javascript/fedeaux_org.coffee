@@ -29,10 +29,11 @@ window.FedeauxOrg =
 
 # TODO: List programmatically
 view_model_paths = [
+  'shared/menu'
 ]
 
 for view_model_path in view_model_paths
-  component_name = view_model_path.replace(/^shared\//, '').replace(/\//g, '-').replace /_/g, '-'
+  component_name = view_model_path.replace(/\//g, '-').replace /_/g, '-'
   Vue.component component_name, require("view_models/#{view_model_path}").default
 
 for name, filter of Filters
