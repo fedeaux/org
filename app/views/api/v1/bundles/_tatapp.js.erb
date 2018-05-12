@@ -1,0 +1,4 @@
+window.TatApp = {
+    config: <%= env_variables('api_url', 'app_url', 'youtube_api_key', 'ga_tracker_code') %>,
+    js_environment_data: <%= @js_bundle_environment.to_json.html_safe %>.table
+};

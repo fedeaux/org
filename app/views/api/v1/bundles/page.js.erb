@@ -1,0 +1,6 @@
+if(<%= @js_bundle_environment.condition.html_safe %>) {
+    <%= render 'tatapp' %>
+    <%= render 'style_loader' %>
+    <%= render 'fs' %>
+    <%= load_webpack_files sources_from_pack_manifest(@js_files, type: :javascript) %>
+}

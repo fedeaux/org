@@ -1,0 +1,10 @@
+(function() {
+    var css_api_url = TatApp.config.api_url + '/bundles/theme.css'
+    var link;
+
+    link = document.createElement('link');
+    link.href = css_api_url;
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+}).call();

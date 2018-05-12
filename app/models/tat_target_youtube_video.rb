@@ -1,0 +1,2 @@
+class TatTargetYoutubeVideo < TatTarget
+end

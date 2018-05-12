@@ -1,0 +1,2 @@
+class TatTargetVevoVideo < TatTarget
+end
