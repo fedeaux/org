@@ -21,7 +21,7 @@ export default
     tatsLoaded: (data) ->
       @state = 'idle' # smells like dependency injection
       @tats = data.tats
-      TatApp.vue.event_bridge.$emit 'TatApp::Tats::Loaded', data
+      FedeauxOrg.vue.event_bridge.$emit 'FedeauxOrg::Tats::Loaded', data
 
       # @newTat()
 
@@ -34,7 +34,7 @@ export default
       @form_tat.user_id = @current_user.id # TODO put in factory
       @addTat @form_tat
 
-      TatApp.vue.event_bridge.$emit 'TatApp::Tats::New'
+      FedeauxOrg.vue.event_bridge.$emit 'FedeauxOrg::Tats::New'
 
     addTat: (tat) ->
       @tats.unshift tat
@@ -50,7 +50,7 @@ export default
       return unless tat
 
       @tats_resource.destroy tat
-      TatApp.vue.event_bridge.$emit 'TatApp::Tats::Destroyed'
+      FedeauxOrg.vue.event_bridge.$emit 'FedeauxOrg::Tats::Destroyed'
 
     removeTat: (tat) ->
       index = @findIndex tat
@@ -83,8 +83,8 @@ export default
         !tat.form_tat
 
     cancelFormTat: ->
-      event_name = @form_tat.isNewRecord() and 'TatApp::Tats::CancelCreate' or 'TatApp::Tats::CancelEdit'
-      TatApp.vue.event_bridge.$emit event_name, { tat: @form_tat }
+      event_name = @form_tat.isNewRecord() and 'FedeauxOrg::Tats::CancelCreate' or 'FedeauxOrg::Tats::CancelEdit'
+      FedeauxOrg.vue.event_bridge.$emit event_name, { tat: @form_tat }
 
       if @form_tat.isPersisted()
         # Keep tats being edited
@@ -109,8 +109,8 @@ export default
       @clearFormTat()
       @tats.push data.tat
 
-      event_name = data.is_create and 'TatApp::Tats::Created' or 'TatApp::Tats::Updated'
-      TatApp.vue.event_bridge.$emit event_name, { tat: data.tat }
+      event_name = data.is_create and 'FedeauxOrg::Tats::Created' or 'FedeauxOrg::Tats::Updated'
+      FedeauxOrg.vue.event_bridge.$emit event_name, { tat: data.tat }
 
     saveFormTatFailure: (response) ->
       @state = 'idle' # smells like dependency injection

@@ -10,38 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_07_150017) do
+ActiveRecord::Schema.define(version: 2018_05_12_164418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "tat_contents", force: :cascade do |t|
-    t.jsonb "properties", default: {}
-    t.string "content"
-    t.string "content_type"
-    t.bigint "tat_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["tat_id"], name: "index_tat_contents_on_tat_id"
-  end
-
-  create_table "tat_targets", force: :cascade do |t|
-    t.float "start"
-    t.float "duration"
-    t.string "type"
-    t.string "identifier"
-    t.bigint "tat_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["tat_id"], name: "index_tat_targets_on_tat_id"
-  end
-
-  create_table "tats", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_tats_on_user_id"
-  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -60,7 +32,4 @@ ActiveRecord::Schema.define(version: 2018_05_07_150017) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "tat_contents", "tats"
-  add_foreign_key "tat_targets", "tats"
-  add_foreign_key "tats", "users"
 end

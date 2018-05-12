@@ -1,2 +1,0 @@
-class TatTargetYoutubeVideo < TatTarget
-end

@@ -1,9 +1,7 @@
-import 'style/application.sass'
-import TatApp from '../tat.coffee'
-import App from 'app.vue'
+import App from '../view_models/app.vue'
+import FedeauxOrg from '../fedeaux_org'
 
-TatApp.initialize = ->
-  el = document.body.appendChild document.createElement 'tatapp'
-  new Vue el: el, render: (h) => h(App)
+FedeauxOrg.initialize = ->
+  new Vue el: '#tatme-app', render: (h) => h(App)
 
-TatApp.initialize()
+$ FedeauxOrg.initialize

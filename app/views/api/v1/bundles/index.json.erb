@@ -1,8 +1,0 @@
-<%
-files = {
-    js: sources_from_pack_manifest(@js_files, type: :javascript),
-    css: sources_from_pack_manifest(@css_files, type: :stylesheet)
-}
-%>
-
-<%= files.to_json.html_safe %>

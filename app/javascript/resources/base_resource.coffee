@@ -84,6 +84,6 @@ class BaseResource
     @constructor.model()
 
   path2url: (path) ->
-    "#{TatApp.config.api_url}#{path}"
+    "#{FedeauxOrg.config.api_url}#{path}"
 
 export default BaseResource

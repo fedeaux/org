@@ -1,2 +1,0 @@
-class TatTargetVevoVideo < TatTarget
-end
