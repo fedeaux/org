@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'rabl-rails'
 
 # Utility
+gem 'ancestry'
 gem 'awesome_print'
 gem 'httparty'
 gem 'nokogiri'

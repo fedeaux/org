@@ -6,10 +6,6 @@
       .ui.sub.header
         | {{ date | weekday_month_monthday }}
 
-    .ui.divider
-
-    logs-form
-
 </template>
 
 <script lang="coffee">

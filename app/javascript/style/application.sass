@@ -4,7 +4,25 @@ body
   padding: 1em
   background-color: #eee
 
-.loggables-list-item
-  border-radius: 3px
-  margin-bottom: 5px
-  padding: 5px 8px
+.loggables-hierarchy-item
+  padding: 0 24px 0 8px
+  margin-bottom: 8px
+
+  .loggables-hierarchy-item
+    padding-right: 0
+
+  .loggables-hierarchy-item-name
+    padding: 4px 8px
+    border-radius: 3px
+    margin-bottom: 8px
+
+    .loggables-hierarchy-item-actions
+      opacity: 0
+      float: right
+
+    &:hover
+      .loggables-hierarchy-item-actions
+        opacity: 1
+
+        i
+          cursor: pointer

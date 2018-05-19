@@ -1,4 +1,5 @@
 import LoggablesResource from '../resources/loggables'
+import LogsResource from '../resources/logs'
 
 Loggables =
   state:
@@ -18,9 +19,24 @@ Loggables =
       res.index (data) =>
         commit 'setAll', data.loggables
 
+Logs =
+  state:
+    logs: []
+
+  mutations:
+    add: (store, log) ->
+      store.logs.push log
+
+  actions:
+    save: ({ commit, state }, log) ->
+      res = new LogsResource
+      res.save log, (data) =>
+        commit 'add', data.log
+
 export default new Vuex.Store {
   modules:
     loggables: Loggables
+    logs: Logs
 
   # getters: {
   #   logs: (query) ->
