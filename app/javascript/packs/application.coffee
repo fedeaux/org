@@ -1,5 +1,5 @@
-import App from '../view_models/app.vue'
 import FedeauxOrg from '../fedeaux_org'
+import App from '../view_models/app.vue'
 import '../style/application.sass'
 import 'semantic-ui-sass'
 

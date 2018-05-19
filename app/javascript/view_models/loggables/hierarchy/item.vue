@@ -1,5 +1,5 @@
 <template lang="pug">
-.loggables-list-item(:style='list_item_style')
+.loggables-hierarchy-item(:style='hierarchy_item_style')
   | {{ loggable.name }}
 </template>
 
@@ -10,7 +10,7 @@ export default
       required: true
 
   computed:
-    list_item_style: ->
+    hierarchy_item_style: ->
       {
         'background-color': "##{@loggable.background_color}"
         'border': "thin solid ##{@loggable.text_color}"

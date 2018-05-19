@@ -4,9 +4,19 @@ after(:users) do
   [
     {
       id: 1,
-      name: 'Wake up',
+      name: 'Life',
       text_color: 'b45f06',
-      background_color: 'fce5cd'
+      background_color: 'fce5cd',
+      children: [
+        {
+          id: 11,
+          name: 'Sleep'
+        },
+        {
+          id: 12,
+          name: 'Meal'
+        }
+      ]
     },
 
     {

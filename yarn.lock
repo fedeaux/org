@@ -637,6 +637,10 @@ babel-helper-replace-supers@^6.24.1:
     babel-traverse "^6.24.1"
     babel-types "^6.24.1"
 
+babel-helper-vue-jsx-merge-props@^2.0.2:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-2.0.3.tgz#22aebd3b33902328e513293a8e4992b384f9f1b6"
+
 babel-helpers@^6.24.1:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-helpers/-/babel-helpers-6.24.1.tgz#3471de9caec388e5c850e597e58a26ddf37602b2"
@@ -6513,6 +6517,14 @@ semantic-ui-sass@^2.2.11:
   version "2.2.11"
   resolved "https://registry.yarnpkg.com/semantic-ui-sass/-/semantic-ui-sass-2.2.11.tgz#f77677cfc6ebe874f0da29e2787b64facccd1f4b"
 
+semantic-ui-vue@^0.2.10:
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/semantic-ui-vue/-/semantic-ui-vue-0.2.10.tgz#186d363424862d968eb5478b72ec4eee0cd3c9a9"
+  dependencies:
+    babel-helper-vue-jsx-merge-props "^2.0.2"
+    babel-runtime "^6.26.0"
+    lodash "^4.17.4"
+
 "semver@2 || 3 || 4 || 5", semver@^5.3.0, semver@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
@@ -7489,6 +7501,10 @@ vue-template-es2015-compiler@^1.6.0:
 vue@^2.5.16:
   version "2.5.16"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
+
+vuex@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.0.1.tgz#e761352ebe0af537d4bb755a9b9dc4be3df7efd2"
 
 watchpack@^1.5.0:
   version "1.6.0"
