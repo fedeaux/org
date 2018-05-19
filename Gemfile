@@ -6,7 +6,7 @@ ruby '2.5.1'
 gem 'rails', '~> 5.2.0'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
-gem 'webpacker'
+gem 'webpacker', '>= 4.0.x'
 gem 'jbuilder', '~> 2.5'
 gem 'rabl-rails'
 
@@ -18,6 +18,7 @@ gem 'oj'
 gem 'table_print'
 gem 'rack-cors'
 gem 'slim-rails'
+gem 'seedbank'
 
 # User account management
 gem 'cancancan'

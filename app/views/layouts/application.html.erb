@@ -5,6 +5,13 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <script>
+     window.FedeauxOrg = {
+         config: {
+             api_url: 'http://localhost:3000/api/v1'
+         }
+     }
+    </script>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
   </head>

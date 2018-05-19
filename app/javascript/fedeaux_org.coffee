@@ -3,6 +3,7 @@ window.VueColor = require 'vue-color'
 window.$ = require 'jquery'
 window.jQuery = window.$
 window._ = require 'underscore'
+window.moment = require 'moment'
 
 import Filters from './support/filters'
 
@@ -12,7 +13,7 @@ camel_case = (input) ->
 
   input.charAt(0).toUpperCase() + input.substr(1)
 
-window.FedeauxOrg =
+window.FedeauxOrg = _.extend window.FedeauxOrg,
   vue:
     event_bridge: new Vue
 
@@ -30,6 +31,10 @@ window.FedeauxOrg =
 # TODO: List programmatically
 view_model_paths = [
   'shared/menu'
+  'days/show'
+  'loggables/list'
+  'loggables/list/item'
+  'logs/form'
 ]
 
 for view_model_path in view_model_paths
