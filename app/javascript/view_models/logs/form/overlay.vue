@@ -1,11 +1,4 @@
 <template lang="pug">
-  sui-modal(v-model="open")
-    .content
-      logs-form(:log='log' v-if='log && open' ref='form')
-
-    .actions
-      .ui.basic.button(@click='hide()') Cancel
-      .ui.primary.button(@click='save()') Save
 </template>
 
 <script lang="coffee">
@@ -28,8 +21,8 @@ export default
       @$refs.form.save()
 
     newLog: (data) ->
-      @show()
       @log = new Log data.attributes or {}
+      @$nextTick @show
 
   created: ->
     FedeauxOrg.system.event_bridge.$on 'Logs::New', @newLog

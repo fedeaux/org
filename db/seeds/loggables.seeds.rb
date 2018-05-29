@@ -26,11 +26,15 @@ after(:users) do
       children: [
         {
           id: 11,
-          name: 'Sleep'
+          name: 'Wakeup'
         },
         {
           id: 12,
           name: 'Meal'
+        },
+        {
+          id: 13,
+          name: 'Turn off'
         },
       ]
     },
@@ -185,6 +189,13 @@ after(:users) do
         }
       ]
     },
+
+    {
+      id: 7,
+      name: 'Meditation',
+      text_color: '33f',
+      background_color: 'eee',
+    }
   ].each do |loggable_attributes|
     create_loggable loggable_attributes
   end

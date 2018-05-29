@@ -15,4 +15,7 @@ class Log extends BaseModel
       start: { type: moment }
     }
 
+  isOnDay: (date) ->
+    true
+
 export default Log

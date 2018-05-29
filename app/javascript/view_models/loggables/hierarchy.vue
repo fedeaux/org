@@ -9,10 +9,9 @@
 export default
   computed:
     loggables: ->
-      @$store.getters.all
+      @$store.getters['loggables/all']
 
   mounted: ->
-    @$store.dispatch 'loadAll'
-
+    @$store.dispatch 'loggables/loadAll'
 
 </script>

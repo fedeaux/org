@@ -32,6 +32,11 @@ view_model_paths = [
   'loggables/hierarchy/item'
   'logs/form'
   'logs/form/overlay'
+  'logs/list'
+  'logs/list/item'
+  'logs/timeline'
+  'logs/timeline/item'
+  'logs/timeline/ruler'
 ]
 
 for view_model_path in view_model_paths

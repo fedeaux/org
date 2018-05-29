@@ -2,6 +2,8 @@ import LoggablesResource from '../resources/loggables'
 import LogsResource from '../resources/logs'
 
 Loggables =
+  namespaced: true
+
   state:
     loggables: []
 
@@ -20,6 +22,8 @@ Loggables =
         commit 'setAll', data.loggables
 
 Logs =
+  namespaced: true
+
   state:
     logs: []
 
@@ -27,26 +31,25 @@ Logs =
     add: (store, log) ->
       store.logs.push log
 
+  getters:
+    onDay: (date) ->
+      log for log in @logs when log.isOnDay date
+
   actions:
     save: ({ commit, state }, log) ->
       res = new LogsResource
       res.save log, (data) =>
         commit 'add', data.log
 
+    load: ({ commit, state }, params) ->
+      res = new LogsResource
+      success = (data) =>
+        console.log data
+
+      res.index success, params
+
 export default new Vuex.Store {
   modules:
     loggables: Loggables
     logs: Logs
-
-  # getters: {
-  #   logs: (query) ->
-
-  #   loggables: ->
-
-  # }
-
-  # mutations: {
-  #   set_log: (store, log) ->
-  #   remove_log: (store, log) ->
-  # }
 }

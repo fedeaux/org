@@ -1,8 +1,6 @@
 <template lang="pug">
 #fedeaux-org-app
-  logs-form-overlay
-
-  .ui.inverted.menu
+  .ui.inverted.menu#menu-topperson
     sui-dropdown.item(:text="'View'")
       sui-dropdown-menu
         sui-dropdown-item(@click="toggleDashboardItem('today')") Today
@@ -15,8 +13,10 @@
       .ui.primary.icon.button(@click='newLog()')
         i.plus.icon
 
-  .ui.grid
+  .ui.grid#content-wrapper
     loggables-hierarchy.ui.four.wide.column(v-if='dashboard_items.loggables.active')
+
+    logs-form.ui.four.wide.column(v-if='dashboard_items.log_form.active')
 
     days-show.ui.four.wide.column(v-if='dashboard_items.today.active && current_day'
                                   :date='current_day'
@@ -45,9 +45,12 @@ export default
       # loggables
       loggables: { active: true }
 
+      # logs
+      log_form: { active: false }
+
   methods:
      newLog: ->
-       FedeauxOrg.system.event_bridge.$emit 'Logs::New'
+       console.log 'new Log Menu'
 
      toggleDashboardItem: (dashboard_item_id) ->
        Vue.set @dashboard_items[dashboard_item_id], 'active', !@dashboard_items[dashboard_item_id].active
@@ -75,12 +78,23 @@ export default
              date: date
              title: "Last #{date.format('ddd')}"
 
+      showLogForm: ->
+        @setDashboardItem 'log_form', active: true
+
+      hideLogForm: ->
+        @setDashboardItem 'log_form', active: false
+
   created: ->
     @current_day = moment().startOf 'day'
 
     @loggables_resource = new LoggablesResource
     @loggables_resource.index @loggablesLoaded
 
-    # @setFormLog
+    FedeauxOrg.system.event_bridge.$on 'Logs::New', @showLogForm
+    FedeauxOrg.system.event_bridge.$on 'LogForm::Cancel', @hideLogForm
+
+  beforeDestroy: ->
+    FedeauxOrg.system.event_bridge.$off 'Logs::New', @showLogForm
+    FedeauxOrg.system.event_bridge.$off 'LogForm::Cancel', @hideLogForm
 
 </script>

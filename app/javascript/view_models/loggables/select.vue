@@ -39,6 +39,6 @@ export default
 
   computed:
     loggables: ->
-      @$store.getters.all
+      @$store.getters['loggables/all']
 
 </script>
