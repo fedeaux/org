@@ -50,6 +50,9 @@ export default
     newLog: (data = {}) ->
       @log = new Log data.attributes or {}
 
+    editLog: (data) ->
+      @log = data.log
+
     updateCurrentTime: ->
       @current_time = moment()
       one_minute_ago = @current_time.clone().subtract 1, 'minute'
@@ -108,22 +111,31 @@ export default
 
     log: ->
       return unless @log
+      @start_display = @log.start.format 'HH:mm' if @log.start
+      @finish_display = @log.finish.format 'HH:mm' if @log.finish
       @setFromDisplay 'start'
       @setFromDisplay 'finish'
 
   mounted: ->
     @updateCurrentTime()
     FedeauxOrg.system.event_bridge.$on 'Logs::New', @newLog
+    FedeauxOrg.system.event_bridge.$on 'Logs::Edit', @editLog
 
-    @$nextTick ->
-      @current_time_interval = setInterval @updateCurrentTime, 5000
-      rounded_current_time = @roundMoment @current_time
-      @start_display = rounded_current_time.format 'HH:mm'
-      @finish_display = rounded_current_time.format 'HH:mm'
+    @$nextTick =>
+      if !@log or @log.isNewRecord()
+        @current_time_interval = setInterval @updateCurrentTime, 5000
+        rounded_current_time = @roundMoment @current_time
+        @start_display = rounded_current_time.format 'HH:mm'
+        @finish_display = rounded_current_time.format 'HH:mm'
+
+      else
+        # @start_display = @log.start.format 'HH:mm'
+        # @finish_display = @log.finish.format 'HH:mm'
 
       $('#start-input', @$el).focus()
 
   beforeDestroy: ->
     FedeauxOrg.system.event_bridge.$off 'Logs::New', @newLog
+    FedeauxOrg.system.event_bridge.$off 'Logs::Edit', @editLog
 
 </script>

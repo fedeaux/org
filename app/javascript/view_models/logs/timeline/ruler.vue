@@ -9,10 +9,10 @@
 export default
   props:
     px_per_block:
-      default: 15
+      required: true
 
     minutes_per_block:
-      default: 30
+      required: true
 
   data: ->
     steps: []

@@ -37,6 +37,7 @@ view_model_paths = [
   'logs/timeline'
   'logs/timeline/item'
   'logs/timeline/ruler'
+  'logs/timeline/item/menu'
 ]
 
 for view_model_path in view_model_paths

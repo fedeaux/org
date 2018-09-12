@@ -26,15 +26,15 @@ after(:users) do
       children: [
         {
           id: 11,
-          name: 'Wakeup'
+          name: 'Morning Ritual'
         },
         {
           id: 12,
           name: 'Meal'
         },
         {
-          id: 13,
-          name: 'Turn off'
+          id: 19,
+          name: 'Turn off Ritual'
         },
       ]
     },
