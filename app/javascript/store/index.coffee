@@ -28,12 +28,19 @@ Logs =
     logs: []
 
   mutations:
-    add: (store, log) ->
-      store.logs.push log
+    add: (store, logs) ->
+      for log in _.isArray(logs) and logs or [logs]
+        result = Helpers.find store.logs, log.id
+
+        if result.index == -1
+          store.logs.push log
+        else
+          store.logs.splice result.index, 1, log
 
   getters:
-    onDay: (date) ->
-      log for log in @logs when log.isOnDay date
+    onDay: (store) ->
+      (date) ->
+        log for log in store.logs when log.isOnDay date
 
   actions:
     save: ({ commit, state }, log) ->
@@ -43,10 +50,13 @@ Logs =
 
     load: ({ commit, state }, params) ->
       res = new LogsResource
-      success = (data) =>
-        console.log data
+      loaded = (data) ->
+        commit 'add', data.logs
+        params.loaded data
 
-      res.index success, params
+      # TODO. Replace with something global like "...expectMomentjsObject()"
+      console.error "params.date must be a moment object" unless params.date and params.date._isAMomentObject
+      res.index loaded, { date: params.date.utc().format() }
 
 export default new Vuex.Store {
   modules:

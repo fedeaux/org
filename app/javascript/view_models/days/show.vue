@@ -11,35 +11,33 @@
 </template>
 
 <script lang="coffee">
-import LogsResource from '../../resources/logs'
+import { mapGetters } from 'vuex'
 
 export default
   props:
-    date:
+    dashboard_item:
       required: true
 
-    title:
-      default: 'Day'
-
   data: ->
+    date: null
+    title: ''
     logs: []
 
   methods:
-    checkIfIsGoodHere: (data) ->
-      # check if data.log would be part of this days @logs
-
     loadLogs: ->
-      res = new LogsResource
-      res.index @logsLoaded, { date: @date.utc().format() }
+                                    # Always pass data around using momentjs
+      @$store.dispatch 'logs/load', { date: @date, loaded: @logsChanged }
 
-    logsLoaded: (data) ->
-      @logs = data.logs
+    logsChanged: (data) ->
+      @logs = @$store.getters['logs/onDay'] @date
 
   created: ->
-    FedeauxOrg.system.event_bridge.$on 'Logs::Added', @checkIfIsGoodHere
+    # FedeauxOrg.system.event_bridge.$on 'Logs::Added', @logsChanged
+    @date = @dashboard_item.props.date
+    @title = @dashboard_item.props.title or 'Alface'
     @loadLogs()
 
   beforeDestroy: ->
-    FedeauxOrg.system.event_bridge.$off 'Logs::Added', @checkIfIsGoodHere
+    # FedeauxOrg.system.event_bridge.$off 'Logs::Added', @logsChanged
 
 </script>

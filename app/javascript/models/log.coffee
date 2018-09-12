@@ -16,6 +16,8 @@ class Log extends BaseModel
     }
 
   isOnDay: (date) ->
-    true
+    date_signature = date.format 'DDMMYYYY'
+    date_signature == @finish.format('DDMMYYYY') or date_signature == @start.format('DDMMYYYY')
+    # TODO: Corner case: A log that goes through multiple days
 
 export default Log

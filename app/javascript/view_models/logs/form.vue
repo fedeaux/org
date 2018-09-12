@@ -74,7 +74,6 @@ export default
       @duration = moment.duration @log.finish.diff @log.start
 
     save: ->
-      console.log 'log save', @log.start, @log.finish
       return unless @log.loggable_id and @log.start
       @$store.dispatch 'logs/save', @log
 

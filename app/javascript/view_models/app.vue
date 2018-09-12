@@ -3,28 +3,36 @@
   .ui.inverted.menu#menu-topperson
     sui-dropdown.item(:text="'View'")
       sui-dropdown-menu
-        sui-dropdown-item(@click="toggleDashboardItem('today')") Today
-        sui-dropdown-item(@click="toggleAliasedDashboardItem('yesterday')") Yesterday
-        sui-dropdown-item(@click="toggleAliasedDashboardItem('last_week')") Last thu
-        .divider
-        sui-dropdown-item Scratch
+        sui-dropdown-item(v-for='dashboard_item in dashboard_items') {{ dashboard_item.title }}
+        //- v-if='dashboard_item.active'
+        //- :is='dashboard_item.vue_component_name'
+        //- :dashboard_item='dashboard_item')
+
+        //- sui-dropdown-item(@click="toggleDashboardItem('today')") Today
+        //- sui-dropdown-item(@click="toggleAliasedDashboardItem('yesterday')") Yesterday
+        //- sui-dropdown-item(@click="toggleAliasedDashboardItem('last_week')") Last thu
 
     .ui.right.item
       .ui.primary.icon.button(@click='newLog()')
         i.plus.icon
 
   .ui.grid#content-wrapper
-    loggables-hierarchy.ui.four.wide.column(v-if='dashboard_items.loggables.active')
+    component.ui.four.wide.column(v-for='dashboard_item in dashboard_items'
+                                  v-if='dashboard_item.active'
+                                  :is='dashboard_item.vue_component_name'
+                                  :dashboard_item='dashboard_item')
 
-    logs-form.ui.four.wide.column(v-if='dashboard_items.log_form.active')
+    //- loggables-hierarchy.ui.four.wide.column(v-if='dashboard_items.loggables.active')
 
-    days-show.ui.four.wide.column(v-if='dashboard_items.today.active && current_day'
-                                  :date='current_day'
-                                  title="Today")
+    //- logs-form.ui.four.wide.column(v-if='dashboard_items.log_form.active')
 
-    days-show.ui.four.wide.column(v-if='dashboard_items.other_day.active'
-                                  :date='dashboard_items.other_day.props.date'
-                                  :title="dashboard_items.other_day.props.title" )
+    //- days-show.ui.four.wide.column(v-if='dashboard_items.other_day.active'
+    //-                               :date='dashboard_items.other_day.props.date'
+    //-                               :title="dashboard_items.other_day.props.title" )
+
+    //- days-show.ui.four.wide.column(v-if='dashboard_items.today.active && current_day'
+    //-                               :date='current_day'
+    //-                               title="Today")
 
 </template>
 
@@ -32,63 +40,35 @@
 
 import LoggablesResource from '../resources/loggables'
 import Store from '../store/index'
+import DashboardItem from '../lib/dashboard_item'
+import DashboardMixin from '../mixins/dashboard'
 
 export default
+  mixins: [DashboardMixin]
+
   store: Store
 
-  data: ->
-    dashboard_items:
-      # days
-      today: { active: true }
-      other_day: { active: false, aliased_id: '', props: {} }
-
-      # loggables
-      loggables: { active: true }
-
-      # logs
-      log_form: { active: false }
-
   methods:
-     newLog: ->
-       console.log 'new Log Menu'
+    newLog: ->
+      console.log 'new Log Menu'
 
-     toggleDashboardItem: (dashboard_item_id) ->
-       Vue.set @dashboard_items[dashboard_item_id], 'active', !@dashboard_items[dashboard_item_id].active
+    showLogForm: ->
+      @setDashboardItemData 'log_form', active: true
 
-     setDashboardItem: (dashboard_item_id, data) ->
-       if data.props
-         for name, value of data.props
-           Vue.set @dashboard_items[dashboard_item_id].props, name, value
-
-       Vue.set @dashboard_items[dashboard_item_id], 'active', data.active
-
-     toggleAliasedDashboardItem: (dashboard_item_id_alias) ->
-       if dashboard_item_id_alias == 'yesterday'
-         @setDashboardItem 'other_day',
-           active: (@dashboard_items.other_day.aliased_id != 'yesterday')
-           props:
-             date: @current_day.clone().subtract 1, 'day'
-             title: 'Yesterday'
-
-       else if dashboard_item_id_alias == 'last_week'
-         date = @current_day.clone().subtract 1, 'week'
-         @setDashboardItem 'other_day',
-           active: (@dashboard_items.other_day.aliased_id != 'last_week')
-           props:
-             date: date
-             title: "Last #{date.format('ddd')}"
-
-      showLogForm: ->
-        @setDashboardItem 'log_form', active: true
-
-      hideLogForm: ->
-        @setDashboardItem 'log_form', active: false
+    hideLogForm: ->
+      @setDashboardItemData 'log_form', active: false
 
   created: ->
     @current_day = moment().startOf 'day'
+    today_id = 'day-show-' + @current_day.format 'DDMMYYYY'
 
-    @loggables_resource = new LoggablesResource
-    @loggables_resource.index @loggablesLoaded
+    yesterday = @current_day.clone().subtract 1, 'day'
+    yesterday_id = 'day-show-' + yesterday.format 'DDMMYYYY'
+
+    @addDashboardItem 'loggables-hierarchy', 'loggables-hierarchy'
+    @addDashboardItem yesterday_id, 'days-show', { date: yesterday, title: 'Yesterday' }
+    @addDashboardItem today_id, 'days-show', { date: @current_day, title: 'Today' }
+    @addDashboardItem 'logs-form', 'logs-form', { log_form: null }
 
     FedeauxOrg.system.event_bridge.$on 'Logs::New', @showLogForm
     FedeauxOrg.system.event_bridge.$on 'LogForm::Cancel', @hideLogForm
