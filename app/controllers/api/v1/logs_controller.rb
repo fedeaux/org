@@ -1,7 +1,7 @@
 module Api
   module V1
     class LogsController < BaseController
-      before_action :set_log, only: [:update]
+      before_action :set_log, only: [:update, :destroy]
 
       def create
         @log = Log.create log_params
@@ -9,6 +9,11 @@ module Api
 
       def update
         @log.update log_params
+        render :show
+      end
+
+      def destroy
+        @log.destroy
         render :show
       end
 

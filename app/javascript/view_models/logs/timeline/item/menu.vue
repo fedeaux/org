@@ -3,7 +3,7 @@
   .item(v-if='confirming_destroy')
     .ui.message Really delete?
     .ui.fluid.buttons
-      .ui.red.button(@click='destroy()') Delete
+      .ui.red.button(@click='destroyLog()') Delete
       .ui.basic.green.button(@click='confirming_destroy = false') Cancel
 
   template(v-else)
@@ -35,6 +35,11 @@ export default
     editLog: ->
       FedeauxOrg.system.event_bridge.$emit 'Logs::Edit', { @log }
       @forceHide()
+
+    destroyLog: ->
+      @$store.dispatch 'logs/destroy', @log
+      @forceHide()
+      @confirming_destroy = false
 
     showLoggableStory: ->
       console.log 'show', @log.loggable

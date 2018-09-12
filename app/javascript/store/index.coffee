@@ -37,12 +37,23 @@ Logs =
         else
           store.logs.splice result.index, 1, log
 
+    remove: (store, log) ->
+      result = Helpers.find store.logs, log.id
+      console.log 'remove', _.map(store.logs, (log) -> log.id), log, result
+      store.logs.splice result.index, 1 if result.index != -1
+      console.log 'remove', _.map(store.logs, (log) -> log.id), log, result
+
   getters:
     onDay: (store) ->
       (date) ->
         log for log in store.logs when log.isOnDay date
 
   actions:
+    destroy: ({ commit, state }, log) ->
+      res = new LogsResource
+      res.destroy log, (data) =>
+        commit 'remove', data.log
+
     save: ({ commit, state }, log) ->
       res = new LogsResource
       res.save log, (data) =>
