@@ -38,5 +38,5 @@ export default
 
   created: ->
     blocks_in_a_day = 60*24/@minutes_per_block
-    @steps = [0..blocks_in_a_day]
+    @steps = [0...blocks_in_a_day]
 </script>

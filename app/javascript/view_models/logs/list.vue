@@ -12,11 +12,10 @@ export default
     logStyle: (log) ->
       {
         'background-color': "##{log.loggable.background_color}"
-        'color': "##{log.loggable.text_color}"
-        'height': @timespanToPx(log)
-        'border-left': "4px solid ##{log.loggable.text_color}"
+        'padding-left': '4px'
+        'border-radius': '4px'
+        color: "##{log.loggable.text_color}"
+        height: 'auto'
+        border: "1px solid ##{log.loggable.text_color}"
       }
-
-    timespanToPx: (log) ->
-      '100px'
 </script>

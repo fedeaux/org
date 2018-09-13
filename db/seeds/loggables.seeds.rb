@@ -25,6 +25,12 @@ after(:users) do
       background_color: 'ecffe5',
       children: [
         {
+          id: 10,
+          name: 'Sleep',
+          text_color: '397cef',
+          background_color: 'dbf9fa',
+        },
+        {
           id: 11,
           name: 'Morning Ritual'
         },
@@ -104,10 +110,40 @@ after(:users) do
         {
           id: 41,
           name: 'Cleanup',
+          children: [
+            {
+              id: 411,
+              name: 'Kitchen'
+            },
+            {
+              id: 412,
+              name: 'Bathroom'
+            },
+            {
+              id: 413,
+              name: 'Livingym'
+            },
+            {
+              id: 414,
+              name: 'Studioffice'
+            },
+            {
+              id: 415,
+              name: 'Bedroom'
+            },
+          ]
         },
         {
           id: 42,
           name: 'Market',
+        },
+        {
+          id: 43,
+          name: 'Dogs',
+        },
+        {
+          id: 44,
+          name: 'Other',
         }
       ]
     },
@@ -183,7 +219,7 @@ after(:users) do
 
         {
           id: 67,
-          name: 'Go Outside D:',
+          name: 'People',
           text_color: 'ead1dc',
           background_color: 'ff00ff'
         }
@@ -195,7 +231,59 @@ after(:users) do
       name: 'Meditation',
       text_color: '33f',
       background_color: 'eee',
-    }
+    },
+
+    {
+      id: 8,
+      name: 'Training',
+      text_color: '3a7b1e',
+      background_color: 'b4ff99',
+      children: [
+        {
+          id: 81,
+          name: 'Jiu Jitsu',
+          children: [
+            {
+              id: 811,
+              name: 'Jiu Jitsu Alliance',
+            },
+            {
+              id: 819,
+              name: 'Jiu Jitsu Allan',
+            },
+          ]
+        },
+        {
+          id: 82,
+          name: 'Bodybuilding'
+        },
+        {
+          id: 83,
+          name: 'Home Training'
+        },
+      ]
+    },
+
+    {
+      id: 9,
+      name: 'Packs',
+      text_color: 'fff',
+      background_color: '000',
+      children: [
+        {
+          id: 91,
+          name: 'Technique & Passive',
+          text_color: 'ff0000',
+          background_color: 'c9daf8',
+          children: [
+            {
+              id: 911,
+              name: 'Guitar & Audiobook',
+            },
+          ]
+        },
+      ]
+    },
   ].each do |loggable_attributes|
     create_loggable loggable_attributes
   end

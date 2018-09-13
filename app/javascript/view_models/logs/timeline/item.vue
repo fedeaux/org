@@ -21,5 +21,4 @@ export default
     hideMenu: ->
       @show_menu = false
 
-
 </script>

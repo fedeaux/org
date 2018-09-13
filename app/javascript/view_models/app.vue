@@ -1,6 +1,6 @@
 <template lang="pug">
 #fedeaux-org-app
-  .ui.inverted.menu#menu-topperson
+  .ui.fixed.inverted.menu#menu-topperson
     sui-dropdown.item(:text="'View'")
       sui-dropdown-menu
         sui-dropdown-item(v-for='dashboard_item in dashboard_items'
@@ -12,10 +12,11 @@
         i.plus.icon
 
   .ui.grid#content-wrapper
-    component.ui.four.wide.column(v-for='dashboard_item in dashboard_items'
-                                  v-if='dashboard_item.active'
-                                  :is='dashboard_item.vue_component_name'
-                                  :dashboard_item='dashboard_item')
+    .ui.four.wide.column.dashboard-item-wrapper(v-for='dashboard_item in dashboard_items'
+                                                v-if='dashboard_item.active')
+
+      component.dashboard-item(:is='dashboard_item.vue_component_name'
+                               :dashboard_item='dashboard_item')
 
 </template>
 
@@ -32,15 +33,8 @@ export default
   store: Store
 
   methods:
-    newLog: ->
-      console.log 'new Log Menu'
-
-    showLogForm: ->
-      console.log 'showLogForm'
-      # @setDashboardItemData 'log_form', active: true
-
-    hideLogForm: ->
-      # @setDashboardItemData 'log_form', active: false
+    addLoggableShowDashboardItem: (data) ->
+      @addDashboardItem "loggables-show-#{data.path_ids}", 'loggables-show', { path_ids: data.path_ids }
 
   created: ->
     @current_day = moment().startOf 'day'
@@ -50,15 +44,13 @@ export default
     yesterday_id = 'day-show-' + yesterday.format 'DDMMYYYY'
 
     @addDashboardItem 'loggables-hierarchy', 'loggables-hierarchy', title: 'Loggables'
+    @addDashboardItem 'logs-form', 'logs-form', { log_form: null, hide_on_menu: true }
     @addDashboardItem yesterday_id, 'days-show', { date: yesterday, title: 'Yesterday' }
     @addDashboardItem today_id, 'days-show', { date: @current_day, title: 'Today' }
-    @addDashboardItem 'logs-form', 'logs-form', { log_form: null, hide_on_menu: true }
 
-    FedeauxOrg.system.event_bridge.$on 'Logs::New', @showLogForm
-    FedeauxOrg.system.event_bridge.$on 'LogForm::Cancel', @hideLogForm
+    FedeauxOrg.system.event_bridge.$on 'Loggables::Show', @addLoggableShowDashboardItem
 
   beforeDestroy: ->
-    FedeauxOrg.system.event_bridge.$off 'Logs::New', @showLogForm
-    FedeauxOrg.system.event_bridge.$off 'LogForm::Cancel', @hideLogForm
+    FedeauxOrg.system.event_bridge.$off 'Loggables::Show', @addLoggableShowDashboardItem
 
 </script>

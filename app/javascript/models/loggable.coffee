@@ -11,6 +11,7 @@ class Loggable extends BaseModel
       text_color: {}
       background_color: {}
       children: { type: Loggable }
+      path_ids: {}
     }
 
 export default Loggable

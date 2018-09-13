@@ -3,17 +3,6 @@ import DashboardItem from '../lib/dashboard_item'
 export default
   data: ->
     dashboard_items: []
-      # days
-      # today: { active: true }
-      # other_day: { active: false, aliased_id: '', props: {} }
-      # days: {}
-
-      # # loggables
-      # loggables: { active: true }
-
-      # # logs
-      # log_form: { active: false }
-
 
   methods:
     addDashboardItem: (id, vue_component_name, props = {}) ->
@@ -27,11 +16,19 @@ export default
       Vue.set @dashboard_items[dashboard_item_id], 'active', !@dashboard_items[dashboard_item_id].active
 
     setDashboardItemData: (dashboard_item_id, data) ->
+      result = @findDashboardItem dashboard_item_id
+
+      if result.index == -1
+        console.error "Couldn't find dashboard_item with id #{dashboard_item_id}"
+        return
+
+      dashboard_item = result.item
+
       if data.props
         for name, value of data.props
-          Vue.set @dashboard_items[dashboard_item_id].props, name, value
+          Vue.set dashboard_item.props, name, value
 
-      Vue.set @dashboard_items[dashboard_item_id], 'active', data.active
+      Vue.set dashboard_item, 'active', data.active
 
     toggleAliasedDashboardItem: (dashboard_item_id_alias) ->
       if dashboard_item_id_alias == 'yesterday'

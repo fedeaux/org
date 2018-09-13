@@ -3,7 +3,7 @@
                :search="true"
                :selection="true"
                :options="options()"
-               v-model="selected")
+               v-model="inner_selected")
 </template>
 
 <script lang="coffee">
@@ -14,6 +14,9 @@ export default
     event: 'change'
 
   props: ['selected']
+
+  data: ->
+    inner_selected: null
 
   methods:
     options: ->
@@ -35,10 +38,17 @@ export default
 
   watch:
     selected: ->
-      @$emit 'input', @selected
+      @inner_selected = @selected
+
+    inner_selected: ->
+      return if @inner_selected == @selected
+      @$emit 'change', @inner_selected
 
   computed:
     loggables: ->
       @$store.getters['loggables/all']
+
+  created: ->
+    @inner_selected = @selected
 
 </script>

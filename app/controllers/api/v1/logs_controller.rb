@@ -5,6 +5,7 @@ module Api
 
       def create
         @log = Log.create log_params
+        render :show
       end
 
       def update
@@ -18,7 +19,11 @@ module Api
       end
 
       def index
-        @logs = Log.on_day(datetime_param) if params[:date]
+        if params[:date]
+          @logs = Log.on_day(datetime_param)
+        elsif params[:loggable_id]
+          @logs = Log.by_loggable_id params[:loggable_id]
+        end
       end
 
       def datetime_param

@@ -4,7 +4,7 @@
     | {{ loggable.name }}
 
     .loggables-hierarchy-item-actions
-      i.eye.icon(@click='view()')
+      i.eye.icon(@click='show()')
       i.plus.icon(@click='add()')
 
   loggables-hierarchy-item(v-for='child in loggable.children' :loggable='child' :key='child.id')
@@ -18,7 +18,8 @@ export default
       required: true
 
   methods:
-    view: ->
+    show: ->
+      FedeauxOrg.system.event_bridge.$emit 'Loggables::Show', path_ids: @loggable.path_ids
 
     add: ->
       FedeauxOrg.system.event_bridge.$emit 'Logs::New', attributes: { loggable_id: @loggable.id }

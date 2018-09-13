@@ -42,13 +42,12 @@ export default
       @confirming_destroy = false
 
     showLoggableStory: ->
-      console.log 'show', @log.loggable
       @forceHide()
+      FedeauxOrg.system.event_bridge.$emit 'Loggables::Show', { path_ids: @log.loggable.path_ids }
 
   mounted: ->
     FedeauxOrg.system.event_bridge.$emit 'Logs::TimelineMenuItemShown'
     FedeauxOrg.system.event_bridge.$on 'Logs::TimelineMenuItemShown', @forceHide
-    console.log 'confirming_destroy', @confirming_destroy
 
   beforeDestroy: ->
     FedeauxOrg.system.event_bridge.$off 'Logs::TimelineMenuItemShown', @forceHide

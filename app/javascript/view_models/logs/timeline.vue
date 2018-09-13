@@ -23,13 +23,20 @@ export default
     logs:
       default: -> []
 
+    date:
+      required: true
+
   computed:
     px_per_minute: ->
       @px_per_block / @minutes_per_block
 
+  data: ->
+    date_sod: null
+    date_eod: null
+
   methods:
     logClass: (log) ->
-      return 'logs-timeline-item-event' if @timespanToPx(log) == 0
+      return 'logs-timeline-item-event' if @height(log) == '1px'
       'logs-timeline-item-time-block'
 
     logStyle: (log) ->
@@ -37,25 +44,34 @@ export default
         'background-color': "##{log.loggable.background_color}"
         border: "1px solid ##{log.loggable.text_color}"
         color: "##{log.loggable.text_color}"
-        height: @timespanToPx(log) + 'px'
-        top: @logStyleTop(log) + 'px'
-        'font-size': @logStyleFontSize(log)
+        height: @height(log) + 'px'
+        top: @top(log) + 'px'
+        'font-size': @fontSize(log)
       }
 
-    timespanToPx: (log) ->
+    timespanToPx: (start, finish) ->
+      start = @date_sod.clone() if start.date() < @date.date()
+      finish = @date_eod.clone() if finish.date() > @date.date()
+
+      duration = moment.duration finish.diff start
+      @px_per_minute * duration.asMinutes()
+
+    height: (log) ->
       return '1px' unless log.finish
-      duration = moment.duration log.finish.diff log.start
-      @px_per_minute * duration.asMinutes()
+      @timespanToPx log.startUtc(), log.finishUtc()
 
-    logStyleTop: (log) ->
+    top: (log) ->
       return null unless log.start
-      start_of_day = log.start.clone().startOf 'day'
-      duration = moment.duration log.start.diff start_of_day
-      @px_per_minute * duration.asMinutes()
+      return 0 if log.start.date() < @date.date()
+      @timespanToPx @date_sod, log.startUtc()
 
-    logStyleFontSize: (log) ->
-      height = @timespanToPx log
+    fontSize: (log) ->
+      height = @height log
       return null if height == 0 or height > 20
       return '8px'
+
+  created: ->
+    @date_sod = @date.clone().hour(0).minute(0).second(0)
+    @date_eod = @date.clone().hour(23).minute(59).second(59)
 
 </script>

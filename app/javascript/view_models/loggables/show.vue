@@ -1,12 +1,9 @@
 <template lang="pug">
-  .days-show
-    h1.ui.header
-      | {{ title }}
+  .loggables-show
+    h1.ui.header(v-if='loggable')
+      | {{ loggable.name }}
 
-      .ui.sub.header
-        | {{ date | weekday_month_monthday }}
-
-    logs-timeline(:logs='logs' v-if='logs.length > 0' :date='date')
+    logs-list(:logs='logs' v-if='logs.length > 0')
 
 </template>
 
@@ -19,22 +16,21 @@ export default
       required: true
 
   data: ->
-    date: null
+    loggable: null
     title: ''
     logs: []
 
   methods:
     loadLogs: ->
                                     # Always pass data around using momentjs
-      @$store.dispatch 'logs/load', { date: @date, loaded: @logsChanged }
+      @$store.dispatch 'logs/load', { loggable_id: @loggable.id, loaded: @logsChanged }
 
     logsChanged: (data) ->
-      @logs = @$store.getters['logs/onDay'] @date
+      @logs = @$store.getters['logs/byLoggableId'] @loggable.id
 
   created: ->
     FedeauxOrg.system.event_bridge.$on 'Logs::Changed', @logsChanged
-    @date = @dashboard_item.props.date
-    @title = @dashboard_item.props.title or 'Alface'
+    @loggable = @$store.getters['loggables/byPathIds'] @dashboard_item.props.path_ids
     @loadLogs()
 
   beforeDestroy: ->

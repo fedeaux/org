@@ -11,6 +11,17 @@ Loggables =
     all: (store) ->
       store.loggables
 
+    byPathIds: (store) ->
+      byPathIdsRec = (loggables, path_ids) ->
+        id = path_ids.shift()
+        result = Helpers.find loggables, id
+        return null if result.item is null
+        return result.item if path_ids.length == 0
+        byPathIdsRec result.item.children, path_ids
+
+      (path_ids) ->
+        byPathIdsRec store.loggables, path_ids
+
   mutations:
     setAll: (store, loggables) ->
       store.loggables = loggables
@@ -37,16 +48,22 @@ Logs =
         else
           store.logs.splice result.index, 1, log
 
+      FedeauxOrg.system.event_bridge.$emit 'Logs::Changed'
+
     remove: (store, log) ->
       result = Helpers.find store.logs, log.id
-      console.log 'remove', _.map(store.logs, (log) -> log.id), log, result
       store.logs.splice result.index, 1 if result.index != -1
-      console.log 'remove', _.map(store.logs, (log) -> log.id), log, result
+
+      FedeauxOrg.system.event_bridge.$emit 'Logs::Changed'
 
   getters:
     onDay: (store) ->
       (date) ->
         log for log in store.logs when log.isOnDay date
+
+    byLoggableId: (store) ->
+      (loggable_id) ->
+        log for log in store.logs when log.loggable_id == loggable_id
 
   actions:
     destroy: ({ commit, state }, log) ->
@@ -65,9 +82,12 @@ Logs =
         commit 'add', data.logs
         params.loaded data
 
-      # TODO. Replace with something global like "...expectMomentjsObject()"
-      console.error "params.date must be a moment object" unless params.date and params.date._isAMomentObject
-      res.index loaded, { date: params.date.utc().format() }
+      if params.date and params.date._isAMomentObject
+        res.index loaded, { date: params.date.utc().format() }
+      else if params.loggable_id
+        res.index loaded, { loggable_id: params.loggable_id }
+      else
+        console.error "params.date or params.loggable_id must be set"
 
 export default new Vuex.Store {
   modules:
