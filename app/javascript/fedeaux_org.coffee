@@ -8,6 +8,9 @@ window._ = require 'underscore'
 window.voca = require 'voca'
 window.moment = require 'moment'
 
+import Helpers from 'support/helpers'
+window.Helpers = Helpers
+
 import Filters from './support/filters'
 import SuiVue from 'semantic-ui-vue'
 import Datepicker from 'vuejs-datepicker'

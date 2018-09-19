@@ -50,25 +50,7 @@ export default
       FedeauxOrg.system.event_bridge.$emit 'Chronometer::Updated', { @current_time, @time_label }
 
     timeLabel: ->
-      @formattedCurrentDuration()
-
-    formattedCurrentDuration: ->
-      sec_num = @currentDuration()
-      # don't forget the second param
-      hours = Math.floor(sec_num / 3600)
-      minutes = Math.floor((sec_num - (hours * 3600)) / 60)
-      seconds = Math.floor sec_num - (hours * 3600) - (minutes * 60)
-
-      if hours < 10
-        hours = '0' + hours
-
-      if minutes < 10
-        minutes = '0' + minutes
-
-      if seconds < 10
-        seconds = '0' + seconds
-
-      hours+':'+minutes+':'+seconds
+      Helpers.formatTimespanAsDuration @start_time, @current_time
 
     currentDuration: ->
       return 0 unless @start_time and @current_time

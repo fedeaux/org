@@ -13,10 +13,12 @@
 
   .ui.grid#content-wrapper
     .ui.four.wide.column.dashboard-item-wrapper(v-for='dashboard_item in dashboard_items'
-                                                v-if='dashboard_item.active')
+                                                v-show='dashboard_item.active')
 
       component.dashboard-item(:is='dashboard_item.vue_component_name'
-                               :dashboard_item='dashboard_item')
+                               :dashboard_item='dashboard_item'
+                               @forceHide='hideDashboardItem(dashboard_item.id)'
+                               @forceShow='showDashboardItem(dashboard_item.id)')
 
 </template>
 

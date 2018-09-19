@@ -79,6 +79,16 @@ export default
     duration: ->
       @duration_display = "#{@totalDuration()}min"
 
+    log:
+      immediate: true
+      handler: ->
+        console.log "log?", @log
+        if @log
+          @$emit 'forceShow'
+          return
+
+        @$emit 'forceHide'
+
     'log.loggable_id': ->
       return unless @log
       @log.loggable = @$store.getters['loggables/find'](@log.loggable_id).item

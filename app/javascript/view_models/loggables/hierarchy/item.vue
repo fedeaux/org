@@ -33,6 +33,6 @@ export default
       }
 
   mounted: ->
-    # @add() if @loggable.id == 22
+    # @show() if @loggable.id == 22
 
 </script>

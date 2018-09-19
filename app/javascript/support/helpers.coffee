@@ -29,4 +29,47 @@ Helpers =
     # pad each with zeros and return
     '#' + Helpers.padString(r, 2, '0') + Helpers.padString(g, 2, '0') + Helpers.padString(b, 2, '0')
 
+  formatTimespanAsDuration: (start, finish) ->
+    return 0 unless start and finish
+    duration = moment.duration finish.diff start
+    Helpers.formatDuration duration.asSeconds()
+
+  formatDuration: (duration) ->
+    hours = Math.floor(duration / 3600)
+    minutes = Math.floor((duration - (hours * 3600)) / 60)
+    seconds = Math.floor duration - (hours * 3600) - (minutes * 60)
+
+    if hours > 0
+      f_hours = "#{hours}h"
+    else
+      f_hours = ""
+
+    if minutes > 0
+      if minutes < 10
+        f_minutes = "0#{minutes}min"
+      else
+        f_minutes = "#{minutes}min"
+    else
+      f_minutes = ""
+
+    if seconds > 0
+      if seconds < 10
+        f_seconds = "0#{seconds}s"
+      else
+        f_seconds = "#{seconds}s"
+
+    else
+      f_seconds = ""
+
+    f_hours+f_minutes+f_seconds
+
+  find: (collection, id) ->
+    for index, item of collection
+      return { index, item } if item.id == id
+
+    {
+      index: -1
+      item: null
+    }
+
 export default Helpers

@@ -13,7 +13,19 @@ export default
       Helpers.find @dashboard_items, id
 
     toggleDashboardItem: (dashboard_item_id) ->
-      Vue.set @dashboard_items[dashboard_item_id], 'active', !@dashboard_items[dashboard_item_id].active
+      result = @findDashboardItem dashboard_item_id
+      return unless result.item
+      Vue.set result.item, 'active', !result.item.active
+
+    showDashboardItem: (dashboard_item_id) ->
+      result = @findDashboardItem dashboard_item_id
+      return unless result.item
+      Vue.set result.item, 'active', true
+
+    hideDashboardItem: (dashboard_item_id) ->
+      result = @findDashboardItem dashboard_item_id
+      return unless result.item
+      Vue.set result.item, 'active', false
 
     setDashboardItemData: (dashboard_item_id, data) ->
       result = @findDashboardItem dashboard_item_id
