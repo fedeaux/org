@@ -16,6 +16,7 @@
     "semantic-ui-sass": "^2.2.11",
     "semantic-ui-vue": "^0.2.10",
     "underscore": "^1.9.0",
+    "voca": "^1.4.0",
     "vue": "^2.5.16",
     "vue-color": "^2.4.6",
     "vue-loader": "14.2.2",

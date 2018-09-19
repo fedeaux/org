@@ -46,7 +46,7 @@ export default
 
   computed:
     loggables: ->
-      @$store.getters['loggables/all']
+      @$store.getters['loggables/hierarchy']
 
   created: ->
     @inner_selected = @selected

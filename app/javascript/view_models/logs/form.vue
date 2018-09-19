@@ -7,7 +7,7 @@
 
     .ui.form
       .field
-        loggables-select(v-model='log.loggable_id')
+        loggables-select(v-model='log.loggable_id' ref="loggablesSelect")
 
       .two.fields
         .field
@@ -17,6 +17,9 @@
         .field
           label Finish
           datetime-picker(v-model='log.finish')
+
+      .field(v-if='log && log.start && log.loggable')
+        chronometer-field(:start='log.start')
 
       .field
         label Description
@@ -41,9 +44,16 @@ export default
     duration_display: ''
     duration: null
 
+    time_label: ''
     log: null
 
   methods:
+    chronometerCurrentTimeUpdated: (data) ->
+      return unless @log
+      Vue.set @log, 'finish', data.current_time
+      @time_label = data.time_label
+      @updatePageTitle()
+
     newLog: (data = {}) ->
       @log = new Log data.attributes or {}
 
@@ -62,18 +72,28 @@ export default
       return 0 unless @duration and @duration.isValid()
       @duration.hours() * 60 + @duration.minutes()
 
+    updatePageTitle: ->
+      document.title = @log.loggable.name + ' ' + @time_label
+
   watch:
     duration: ->
       @duration_display = "#{@totalDuration()}min"
+
+    'log.loggable_id': ->
+      return unless @log
+      @log.loggable = @$store.getters['loggables/find'](@log.loggable_id).item
+      @updatePageTitle()
 
   mounted: ->
     FedeauxOrg.system.event_bridge.$on 'Logs::New', @newLog
     FedeauxOrg.system.event_bridge.$on 'Logs::Edit', @editLog
     FedeauxOrg.system.event_bridge.$on 'Logs::Changed', @cancel
+    FedeauxOrg.system.event_bridge.$on 'Chronometer::Updated', @chronometerCurrentTimeUpdated
 
   beforeDestroy: ->
     FedeauxOrg.system.event_bridge.$off 'Logs::New', @newLog
     FedeauxOrg.system.event_bridge.$off 'Logs::Edit', @editLog
     FedeauxOrg.system.event_bridge.$off 'Logs::Changed', @cancel
+    FedeauxOrg.system.event_bridge.$off 'Chronometer::Updated', @chronometerCurrentTimeUpdated
 
 </script>

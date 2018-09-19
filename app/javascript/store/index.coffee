@@ -5,11 +5,12 @@ Loggables =
   namespaced: true
 
   state:
+    loggables_hierarchy: []
     loggables: []
 
   getters:
-    all: (store) ->
-      store.loggables
+    hierarchy: (store) ->
+      store.loggables_hierarchy
 
     byPathIds: (store) ->
       byPathIdsRec = (loggables, path_ids) ->
@@ -20,11 +21,26 @@ Loggables =
         byPathIdsRec result.item.children, path_ids
 
       (path_ids) ->
-        byPathIdsRec store.loggables, path_ids
+        byPathIdsRec store.loggables_hierarchy, path_ids
+
+    find: (store) ->
+      (id) ->
+        Helpers.find store.loggables, id
 
   mutations:
     setAll: (store, loggables) ->
-      store.loggables = loggables
+      store.loggables_hierarchy = loggables
+      store.loggables = []
+
+      addToLoggablesRec = (loggable) ->
+        store.loggables.push loggable
+        return unless loggable.children and loggable.children.length > 0
+
+        for child in loggable.children
+          addToLoggablesRec child
+
+      for loggable in store.loggables_hierarchy
+        addToLoggablesRec loggable
 
   actions:
     loadAll: ({ commit, state }) ->

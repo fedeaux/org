@@ -32,4 +32,7 @@ export default
         'color': "##{@loggable.text_color}"
       }
 
+  mounted: ->
+    # @add() if @loggable.id == 22
+
 </script>

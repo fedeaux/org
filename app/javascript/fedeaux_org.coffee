@@ -5,6 +5,7 @@ window.Vuex = require('vuex').default
 window.$ = require 'jquery'
 window.jQuery = window.$
 window._ = require 'underscore'
+window.voca = require 'voca'
 window.moment = require 'moment'
 
 import Filters from './support/filters'
@@ -40,10 +41,21 @@ view_model_paths = [
   'logs/timeline/item/menu'
 
   'inputs/datetime_picker'
+  'widgets/chronometer/field'
 ]
 
+replaces = [
+    [/^inputs\//, '']
+    [/^widgets\//, '']
+    [/\//g, '-']
+    [/_/g, '-']
+  ]
+
 for view_model_path in view_model_paths
-  component_name = view_model_path.replace(/^inputs\//, '').replace(/\//g, '-').replace /_/g, '-'
+  component_name = view_model_path
+  for replace in replaces
+    component_name = component_name.replace replace[0], replace[1]
+
   Vue.component component_name, require("view_models/#{view_model_path}").default
   Vue.component 'datepicker', Datepicker
 
