@@ -1,27 +1,28 @@
 <template lang="pug">
-  .days-show
-    h1.ui.header
-      | {{ title }}
-
-      .ui.sub.header
-        | {{ date | weekday_month_monthday }}
-
-    logs-timeline(:logs='logs' v-if='logs.length > 0' :date='date')
+.days-show
+  dashboard-item-header(:title="title" :sub_title="sub_title")
+  logs-timeline(:logs='logs' v-if='logs.length > 0' :date='date')
 
 </template>
 
 <script lang="coffee">
-import { mapGetters } from 'vuex'
+
+import DashboardItemMixin from '../../mixins/dashboard_item'
 
 export default
+  mixins: [ DashboardItemMixin ]
+
   props:
     dashboard_item:
       required: true
 
   data: ->
     date: null
-    title: ''
     logs: []
+
+  computed:
+    sub_title: ->
+      @date.format 'ddd, MMM Do'
 
   methods:
     loadLogs: ->
@@ -34,7 +35,6 @@ export default
   created: ->
     FedeauxOrg.system.event_bridge.$on 'Logs::Changed', @logsChanged
     @date = @dashboard_item.props.date
-    @title = @dashboard_item.props.title or 'Alface'
     @loadLogs()
 
   beforeDestroy: ->

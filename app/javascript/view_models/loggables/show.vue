@@ -1,23 +1,23 @@
 <template lang="pug">
-  .loggables-show
-    h1.ui.header(v-if='loggable')
-      | {{ loggable.name }}
-
-    logs-list(:logs='logs' v-if='logs.length > 0')
+.loggables-show
+  dashboard-item-header(v-if='loggable' :title="loggable.name")
+  logs-list(:logs='logs' v-if='logs.length > 0')
 
 </template>
 
 <script lang="coffee">
-import { mapGetters } from 'vuex'
+
+import DashboardItemMixin from '../../mixins/dashboard_item'
 
 export default
+  mixins: [ DashboardItemMixin ]
+
   props:
     dashboard_item:
       required: true
 
   data: ->
     loggable: null
-    title: ''
     logs: []
 
   methods:

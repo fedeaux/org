@@ -25,7 +25,7 @@
         label Description
         textarea(v-model='log.description')
 
-      .ui.fluid.buttons
+      .ui.fluid.small.buttons
         .ui.primary.labeled.icon.button(@click='save')
           | Save
           i.save.icon
@@ -73,7 +73,7 @@ export default
       @duration.hours() * 60 + @duration.minutes()
 
     updatePageTitle: ->
-      document.title = @log.loggable.name + ' ' + @time_label
+      document.title = "#{@time_label} - #{@log.loggable.name}"
 
   watch:
     duration: ->

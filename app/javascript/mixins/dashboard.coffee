@@ -5,6 +5,11 @@ export default
     dashboard_items: []
 
   methods:
+    addDaysShowDashboardItem: (props = {}) ->
+      id = 'day-show-' + props.date.format 'DDMMYYYY'
+      props.title = props.date.format 'MMM Do' unless props.title
+      @addDashboardItem id, 'days-show', props
+
     addDashboardItem: (id, vue_component_name, props = {}) ->
       container_vue_app = @
       @dashboard_items.push new DashboardItem { id, vue_component_name, container_vue_app, props }
@@ -57,3 +62,7 @@ export default
           props:
             date: date
             title: "Last #{date.format('ddd')}"
+
+  computed:
+    active_dashboard_items_count: ->
+      (dashborad_item for dashborad_item in @dashboard_items when dashborad_item.active).length
