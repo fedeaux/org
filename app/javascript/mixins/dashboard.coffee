@@ -11,6 +11,12 @@ export default
       @addDashboardItem id, 'days-show', props
 
     addDashboardItem: (id, vue_component_name, props = {}) ->
+      existent_dashboard_item = @findDashboardItem(id).item
+
+      if existent_dashboard_item
+        @showDashboardItem id
+        return
+
       container_vue_app = @
       @dashboard_items.push new DashboardItem { id, vue_component_name, container_vue_app, props }
 
@@ -47,22 +53,12 @@ export default
 
       Vue.set dashboard_item, 'active', data.active
 
-    toggleAliasedDashboardItem: (dashboard_item_id_alias) ->
-      if dashboard_item_id_alias == 'yesterday'
-        @setDashboardItem 'other_day',
-          active: (@dashboard_items.other_day.aliased_id != 'yesterday')
-          props:
-            date: @current_day.clone().subtract 1, 'day'
-            title: 'Yesterday'
-
-      else if dashboard_item_id_alias == 'last_week'
-        date = @current_day.clone().subtract 1, 'week'
-        @setDashboardItem 'other_day',
-          active: (@dashboard_items.other_day.aliased_id != 'last_week')
-          props:
-            date: date
-            title: "Last #{date.format('ddd')}"
-
   computed:
     active_dashboard_items_count: ->
       (dashborad_item for dashborad_item in @dashboard_items when dashborad_item.active).length
+
+  mounted: ->
+    FedeauxOrg.system.event_bridge.$on 'Day::Show', @addDaysShowDashboardItem
+
+  beforeDestroy: ->
+    FedeauxOrg.system.event_bridge.$off 'Day::Show', @addDaysShowDashboardItem

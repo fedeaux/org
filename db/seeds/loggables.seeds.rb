@@ -131,6 +131,10 @@ after(:users) do
               id: 415,
               name: 'Bedroom'
             },
+            {
+              id: 416,
+              name: 'Whole House'
+            },
           ]
         },
         {

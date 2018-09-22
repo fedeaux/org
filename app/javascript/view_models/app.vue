@@ -65,9 +65,11 @@ export default
     @addDaysShowDashboardItem { date: @current_day.clone().subtract(1, 'day'), title: 'Yesterday' }
     @addDaysShowDashboardItem { date: one_week_ago , title: "Last #{one_week_ago.format('dddd')}" }
 
+    FedeauxOrg.system.event_bridge.$on 'Days::Show', @addDaysShowDashboardItem
     FedeauxOrg.system.event_bridge.$on 'Loggables::Show', @addLoggableShowDashboardItem
 
   beforeDestroy: ->
+    FedeauxOrg.system.event_bridge.$off 'Days::Show', @addDaysShowDashboardItem
     FedeauxOrg.system.event_bridge.$off 'Loggables::Show', @addLoggableShowDashboardItem
 
 </script>

@@ -31,6 +31,7 @@ window.FedeauxOrg = _.extend window.FedeauxOrg,
 # TODO: List programmatically
 view_model_paths = [
   'days/show'
+  'days/navigator'
   'loggables/select'
   'loggables/show'
   'loggables/hierarchy'

@@ -82,7 +82,6 @@ export default
     log:
       immediate: true
       handler: ->
-        console.log "log?", @log
         if @log
           @$emit 'forceShow'
           return
