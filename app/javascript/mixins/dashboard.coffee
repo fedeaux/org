@@ -56,9 +56,3 @@ export default
   computed:
     active_dashboard_items_count: ->
       (dashborad_item for dashborad_item in @dashboard_items when dashborad_item.active).length
-
-  mounted: ->
-    FedeauxOrg.system.event_bridge.$on 'Day::Show', @addDaysShowDashboardItem
-
-  beforeDestroy: ->
-    FedeauxOrg.system.event_bridge.$off 'Day::Show', @addDaysShowDashboardItem

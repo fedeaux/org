@@ -58,6 +58,7 @@ export default
     @current_day = moment().startOf 'day'
     @addDashboardItem 'loggables-hierarchy', 'loggables-hierarchy', title: 'Loggables'
     @addDashboardItem 'logs-form', 'logs-form', { log_form: null, hide_on_menu: true }
+    @addDashboardItem 'logs-statistics', 'logs-statistics'
 
     one_week_ago = @current_day.clone().subtract 1, 'week'
 

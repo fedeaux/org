@@ -43,6 +43,7 @@ view_model_paths = [
   'logs/timeline/item'
   'logs/timeline/ruler'
   'logs/timeline/item/menu'
+  'logs/statistics'
   'dashboard/item/header'
 
   'inputs/datetime_picker'
