@@ -1,15 +1,21 @@
 <template lang="pug">
-.logs-list-item
+.logs-list-item(@click='showMenu()')
+  logs-item-menu(v-if='show_menu' :log='log' @hide='hideMenu()')
+
   .log-timespan
     | {{ timespan }}
 
-  pre
+  pre.logs-item-description
     | {{ log.description }}
 
 </template>
 
 <script lang="coffee">
+
+import MenuMixin from '../../../mixins/menu'
+
 export default
+  mixins: [MenuMixin]
   props: ['log']
 
   computed:

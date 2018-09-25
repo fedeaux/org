@@ -75,7 +75,8 @@ module Api
 
       def productivity_statistics
         [
-          [2, 'Work hours/week'],
+          [21, 'Tatchup hours/week'],
+          [22, 'FedeauxOrg hours/week'],
           [5, 'Study hours/week'],
           [8, 'Training hours/week'],
         ].map do |params|

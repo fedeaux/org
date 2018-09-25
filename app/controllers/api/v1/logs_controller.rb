@@ -22,7 +22,7 @@ module Api
         if params[:date]
           @logs = Log.on_day(datetime_param)
         elsif params[:loggable_id]
-          @logs = Log.by_loggable_id params[:loggable_id]
+          @logs = Log.by_loggable_id(params[:loggable_id]).order 'start'
         end
       end
 

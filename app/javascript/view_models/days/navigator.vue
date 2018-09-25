@@ -1,5 +1,5 @@
 <template lang="pug">
-.days-navigator.ui.tiny.fluid.basic.buttons
+.days-navigator.ui.mini.fluid.basic.buttons
   .ui.button(@click='openDay(yesterday)')
     | {{ yesterday.format('ddd, MMM Do') }}
   .ui.button(@click='openDay(tomorrow)')

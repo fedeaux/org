@@ -1,8 +1,8 @@
 <template lang="pug">
-.logs-timeline-item-menu.ui.vertical.menu(@mouseleave='forceHide()')
+.logs-item-menu.ui.vertical.menu(@mouseleave='forceHide()')
   .item(v-if='confirming_destroy')
     .ui.message Really delete?
-    .ui.fluid.buttons
+    .ui.mini.fluid.buttons
       .ui.red.button(@click='destroyLog()') Delete
       .ui.basic.green.button(@click='confirming_destroy = false') Cancel
 

@@ -37,12 +37,12 @@ view_model_paths = [
   'loggables/hierarchy'
   'loggables/hierarchy/item'
   'logs/form'
+  'logs/item/menu'
   'logs/list'
   'logs/list/item'
   'logs/timeline'
   'logs/timeline/item'
   'logs/timeline/ruler'
-  'logs/timeline/item/menu'
   'logs/statistics'
   'dashboard/item/header'
 

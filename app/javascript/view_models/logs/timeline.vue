@@ -15,7 +15,7 @@
 export default
   props:
     px_per_block:
-      default: 16
+      default: 13
 
     minutes_per_block:
       default: 30
@@ -63,12 +63,12 @@ export default
     top: (log) ->
       return null unless log.start
       return 0 if log.start.date() < @date.date()
-      @timespanToPx @date_sod, log.startUtc()
+      @timespanToPx(@date_sod, log.startUtc()) + 1
 
     fontSize: (log) ->
       height = @height log
       return null if height == 0 or height > 20
-      return '8px'
+      height > 10 and '8px' or '0px'
 
   created: ->
     @date_sod = @date.clone().hour(0).minute(0).second(0)

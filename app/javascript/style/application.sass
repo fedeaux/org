@@ -57,13 +57,15 @@ html, body, #fedeaux-org-app, #content-wrapper, #content-wrapper .dashboard-item
           cursor: pointer
 
 .logs-timeline
+  padding-top: 1em
   position: relative
 
   .logs-timeline-ruler
     .logs-timeline-ruler-element
-      border-bottom: thin #ddd solid
-      font-size: 9px
-      line-height: 15px
+      border-top: thin #ddd solid
+      color: #666
+      font-size: 8px
+      line-height: 1em
 
   .logs-timeline-item
     position: absolute
@@ -82,10 +84,14 @@ html, body, #fedeaux-org-app, #content-wrapper, #content-wrapper .dashboard-item
     &:hover
       opacity: 1
 
-.logs-timeline-item-menu
+.logs-item-menu
   position: absolute
   top: 0
   z-index: 999
+
+.logs-item-description
+  white-space: pre-wrap
+  font-size: 0.82em
 
 .logs-list-item
   position: relative
