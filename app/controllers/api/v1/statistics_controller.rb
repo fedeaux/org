@@ -61,6 +61,10 @@ module Api
         last_smoke_log = Log.by_loggable_id(64).order('finish DESC').first
         last_f5_log = Log.by_loggable_id(63).order('finish DESC').first
 
+        good_meals_count = Log.by_loggable_id(12).where('finish > ?', 21.days.ago).count
+        bad_meals_count = Log.by_loggable_id(13).where('finish > ?', 21.days.ago).count
+        total_meals_count = good_meals_count + bad_meals_count
+
         [
           {
             label: 'Days without cigars',
@@ -69,6 +73,10 @@ module Api
           {
             label: 'Days without F5',
             value: ((Time.current - (last_f5_log&.finish || 0)).to_i/(24*60*60)).to_i
+          },
+          {
+            label: 'Meals',
+            value: total_meals_count == 0 ? 'No data' : "#{good_meals_count*100.0/total_meals_count}% Good Meals"
           }
         ]
       end

@@ -7,7 +7,7 @@
 
     .ui.form
       .field
-        loggables-select(v-model='log.loggable_id' ref="loggablesSelect")
+        loggables-select(v-model='log.loggable_id')
 
       .two.fields
         .field
@@ -19,7 +19,7 @@
           datetime-picker(v-model='log.finish')
 
       .field(v-if='log && log.start && log.loggable')
-        chronometer-field(:start='log.start')
+        chronometer-field(:start='log.start' ref="chronometer")
 
       .field
         label Description
@@ -56,6 +56,11 @@ export default
 
     newLog: (data = {}) ->
       @log = new Log data.attributes or {}
+
+      return unless data.autoplay
+
+      @$nextTick =>
+        @$refs.chronometer.play()
 
     editLog: (data) ->
       @log = data.log

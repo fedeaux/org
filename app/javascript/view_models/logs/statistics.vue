@@ -4,7 +4,7 @@
 
   template(v-for='statistics in statistics_groups' v-if='statistics_groups && statistics_groups.length > 0')
     h3.ui.title {{ statistics.title }}
-    table.ui.table
+    table.ui.very.basic.small.striped.table
       tr(v-for='statistic in statistics.statistics')
         td {{ statistic.label }}
         td {{ statistic.value }}

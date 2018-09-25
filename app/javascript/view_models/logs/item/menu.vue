@@ -19,6 +19,9 @@
       i.eye.icon
       | View "{{ log.loggable.name }}" story.
 
+    .item(v-if='log && log.description')
+      logs-item-description(:log='log')
+
 </template>
 
 <script lang="coffee">

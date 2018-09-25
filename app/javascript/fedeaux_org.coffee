@@ -38,6 +38,7 @@ view_model_paths = [
   'loggables/hierarchy/item'
   'logs/form'
   'logs/item/menu'
+  'logs/item/description'
   'logs/list'
   'logs/list/item'
   'logs/timeline'

@@ -5,8 +5,7 @@
   .log-timespan
     | {{ timespan }}
 
-  pre.logs-item-description
-    | {{ log.description }}
+  logs-item-description(:log='log')
 
 </template>
 

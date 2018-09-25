@@ -36,7 +36,11 @@ after(:users) do
         },
         {
           id: 12,
-          name: 'Meal'
+          name: 'Good Meal'
+        },
+        {
+          id: 13,
+          name: 'Bad Meal'
         },
         {
           id: 19,
@@ -63,41 +67,56 @@ after(:users) do
     },
 
     {
-      id: 3,
-      name: 'Music',
-      text_color: 'ff0000',
-      background_color: 'f4cccc',
+      id: 6669,
+      name: 'Arts',
+      text_color: '999',
+      background_color: 'fff',
       children: [
         {
-          id: 31,
-          name: 'Technique & Repertoire',
+          id: 3,
+          name: 'Music',
+          text_color: 'ff0000',
+          background_color: 'f4cccc',
           children: [
             {
-              id: 311,
-              name: 'Electric Guitar',
+              id: 31,
+              name: 'Technique & Repertoire',
+              children: [
+                {
+                  id: 311,
+                  name: 'Electric Guitar',
+                },
+                {
+                  id: 312,
+                  name: 'Acoustic Guitar',
+                },
+                {
+                  id: 313,
+                  name: 'Piano',
+                },
+                {
+                  id: 314,
+                  name: 'Sing',
+                },
+                {
+                  id: 315,
+                  name: 'Violin',
+                },
+              ]
             },
             {
-              id: 312,
-              name: 'Acoustic Guitar',
-            },
-            {
-              id: 313,
-              name: 'Piano',
-            },
-            {
-              id: 314,
-              name: 'Sing',
-            },
-            {
-              id: 315,
-              name: 'Violin',
+              id: 32,
+              name: 'Musicality'
             },
           ]
         },
+
         {
-          id: 32,
-          name: 'Musicality'
-        },
+          id: 9,
+          name: 'Drawing',
+          text_color: 'ccc',
+          background_color: 'fff',
+        }
       ]
     },
 
@@ -264,27 +283,6 @@ after(:users) do
         {
           id: 83,
           name: 'Home Training'
-        },
-      ]
-    },
-
-    {
-      id: 9,
-      name: 'Packs',
-      text_color: 'fff',
-      background_color: '000',
-      children: [
-        {
-          id: 91,
-          name: 'Technique & Passive',
-          text_color: 'ff0000',
-          background_color: 'c9daf8',
-          children: [
-            {
-              id: 911,
-              name: 'Guitar & Audiobook',
-            },
-          ]
         },
       ]
     },

@@ -1,12 +1,17 @@
 <template lang="pug">
 .logs-list
-  logs-list-item(v-for='log in logs' :key='log.id' :log='log' :style='logStyle(log)')
+  logs-list-item(v-for='log in ordered_logs' :key='log.id' :log='log' :style='logStyle(log)')
 
 </template>
 
 <script lang="coffee">
 export default
   props: ['logs']
+
+  computed:
+    ordered_logs: ->
+      return [] unless @logs
+      _.sortBy(@logs, (log) -> log.start).reverse()
 
   methods:
     logStyle: (log) ->

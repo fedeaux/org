@@ -6,6 +6,7 @@
     .loggables-hierarchy-item-actions
       i.eye.icon(@click='show()')
       i.plus.icon(@click='add()')
+      i.play.icon(@click='play()')
 
   loggables-hierarchy-item(v-for='child in loggable.children' :loggable='child' :key='child.id')
 
@@ -23,6 +24,9 @@ export default
 
     add: ->
       FedeauxOrg.system.event_bridge.$emit 'Logs::New', attributes: { loggable_id: @loggable.id }
+
+    play: ->
+      FedeauxOrg.system.event_bridge.$emit 'Logs::New', attributes: { loggable_id: @loggable.id }, autoplay: true
 
   computed:
     hierarchy_item_style: ->

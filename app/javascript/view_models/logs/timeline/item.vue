@@ -5,8 +5,7 @@
   .logs-timeline-item-title
     | {{ log.loggable.name }}
 
-  pre.logs-item-description
-    | {{ log.description }}
+  logs-item-description(:log='log')
 
 </template>
 

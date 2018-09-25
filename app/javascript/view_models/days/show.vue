@@ -2,6 +2,8 @@
 .days-show
   dashboard-item-header(:title="title" :sub_title="sub_title")
   days-navigator(:date='date' v-if='date')
+  br
+  br
   logs-timeline(:logs='logs' v-if='logs.length > 0' :date='date')
 
 </template>
