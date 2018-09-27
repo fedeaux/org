@@ -6,6 +6,12 @@
   datepicker.inline(v-model='datepicker_date' :calendar-button='true' :input-class='"hidden"')
 
   input(v-model='time_display')
+
+  .datetime-picker-actions.icon-actions
+    i.chevron.left.icon(@click='subOneDay()')
+    i.chevron.right.icon(@click='addOneDay()')
+    i.chevron.down.icon(@click='roundDown()')
+    i.chevron.up.icon(@click='roundUp()')
 </template>
 
 <script lang="coffee">
@@ -19,6 +25,29 @@ export default
     time_display: ''
 
   methods:
+    subOneDay: ->
+      return unless @datepicker_date
+      @datepicker_date.setDate @datepicker_date.getDate() - 1
+      @setDateFromDatepickerDate()
+
+    addOneDay: ->
+      return unless @datepicker_date
+      @datepicker_date.setDate @datepicker_date.getDate() + 1
+      @setDateFromDatepickerDate()
+
+    roundDown: ->
+      minutes = @inner_value.minutes()
+      rest = minutes % 5
+      @inner_value.minutes minutes - rest
+      @innerValueChanged()
+
+    roundUp: ->
+      minutes = @inner_value.minutes()
+      rest = 5 - minutes % 5
+      return if rest == 5
+      @inner_value.minutes minutes + rest
+      @innerValueChanged()
+
     showDatepicker: ->
       $('.vdp-datepicker__calendar-button', @$el).click()
 

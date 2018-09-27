@@ -17,6 +17,17 @@ body
   display: none
   font-size: 0
 
+.datetime-picker-actions
+  font-size: 10px !important
+
+.icon-actions
+  i
+    cursor: pointer
+    opacity: 0.5
+
+    &:hover
+      opacity: 1
+
 html, body, #fedeaux-org-app, #content-wrapper, #content-wrapper .dashboard-item-wrapper
   height: 100%
 
@@ -66,9 +77,13 @@ html, body, #fedeaux-org-app, #content-wrapper, #content-wrapper .dashboard-item
       font-size: 8px
       line-height: 1em
 
-  .logs-timeline-item
+  .logs-timeline-item-wrapper
     position: absolute
     margin-left: 30px
+
+    .logs-timeline-item
+      height: 100%
+      overflow: hidden
 
     &.logs-timeline-item-event
       width: 90%
@@ -91,7 +106,6 @@ html, body, #fedeaux-org-app, #content-wrapper, #content-wrapper .dashboard-item
 .logs-item-description
   white-space: pre-wrap
   font-size: 0.82em
-  overflow: hidden
 
 .logs-list-item
   position: relative

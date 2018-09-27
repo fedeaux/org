@@ -1,11 +1,11 @@
 <template lang="pug">
-.logs-timeline-item(@click='showMenu()')
+.logs-timeline-item-wrapper(@click='showMenu()')
   logs-item-menu(v-if='show_menu' :log='log' @hide='hideMenu()')
+  .logs-timeline-item
+    .logs-timeline-item-title
+      | {{ log.loggable.name }}
 
-  .logs-timeline-item-title
-    | {{ log.loggable.name }}
-
-  logs-item-description(:log='log')
+    logs-item-description(:log='log')
 
 </template>
 
