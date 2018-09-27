@@ -44,15 +44,18 @@ module Api
         [
           {
             label: 'Bed Time',
-            value: Time.at(bedtime_seconds.reduce(:+) / bedtime_seconds.size.to_f).utc.strftime("%I:%M")
+            value: Time.at(bedtime_seconds.reduce(:+) / bedtime_seconds.size.to_f).utc.strftime("%H:%M"),
+            target: '23:00'
           },
           {
             label: 'Wakeup Time',
-            value: Time.at(wakeup_seconds.reduce(:+) / wakeup_seconds.size.to_f).utc.strftime("%I:%M")
+            value: Time.at(wakeup_seconds.reduce(:+) / wakeup_seconds.size.to_f).utc.strftime("%H:%M"),
+            target: '09:00'
           },
           {
             label: 'Sleep Amount',
-            value: formatted_seconds(sleep_logs.map(&:duration).reduce(:+)/sleep_logs.count)
+            value: formatted_seconds(sleep_logs.map(&:duration).reduce(:+)/sleep_logs.count),
+            target: '9h'
           },
         ]
       end
@@ -83,31 +86,33 @@ module Api
 
       def productivity_statistics
         [
-          [21, 'Tatchup hours/week'],
-          [22, 'FedeauxOrg hours/week'],
-          [5, 'Study hours/week'],
-          [8, 'Training hours/week'],
+          [21, 'Tatchup hours/week', '30h'],
+          [22, 'FedeauxOrg hours/week', '3h'],
+          [5, 'Study hours/week', '5h'],
+          [8, 'Training hours/week', '5h'],
         ].map do |params|
           logs = Loggable.find(params[0]).logs_with_descendents.where('finish > ?', 21.days.ago)
 
           {
             label: params[1],
-            value: formatted_mean_duration_per_week(logs)
+            value: formatted_mean_duration_per_week(logs),
+            target: params[2]
           }
         end
       end
 
       def leisure_statistics
         [
-          [61, 'Lolzin hours/week'],
-          [66, 'Youtube hours/week'],
-          [67, 'People hours/week'],
+          [61, 'Lolzin hours/week', '5h'],
+          [66, 'Youtube hours/week', '5h'],
+          [67, 'People hours/week', '3h'],
         ].map do |params|
           logs = Loggable.find(params[0]).logs_with_descendents.where('finish > ?', 21.days.ago)
 
           {
             label: params[1],
-              value: formatted_mean_duration_per_week(logs)
+            value: formatted_mean_duration_per_week(logs),
+            target: params[2]
           }
         end
       end

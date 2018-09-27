@@ -8,6 +8,8 @@
       tr(v-for='statistic in statistics.statistics')
         td {{ statistic.label }}
         td {{ statistic.value }}
+        td(v-if='statistic.target')
+          | {{ statistic.target }}
 </template>
 
 <script lang="coffee">
