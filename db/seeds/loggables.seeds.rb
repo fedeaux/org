@@ -63,6 +63,10 @@ after(:users) do
           id: 22,
           name: 'FedeauxOrg'
         },
+        {
+          id: 23,
+          name: 'Youtube'
+        },
       ]
     },
 

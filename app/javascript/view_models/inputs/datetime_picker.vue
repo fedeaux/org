@@ -38,13 +38,14 @@ export default
     roundDown: ->
       minutes = @inner_value.minutes()
       rest = minutes % 5
-      @inner_value.minutes minutes - rest
+      sub = if rest == 0 then 5 else rest
+
+      @inner_value.minutes minutes - sub
       @innerValueChanged()
 
     roundUp: ->
       minutes = @inner_value.minutes()
       rest = 5 - minutes % 5
-      return if rest == 5
       @inner_value.minutes minutes + rest
       @innerValueChanged()
 
