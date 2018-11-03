@@ -255,9 +255,20 @@ after(:users) do
 
     {
       id: 7,
-      name: 'Meditation',
+      name: 'Mind',
       text_color: '33f',
       background_color: 'eee',
+
+      children: [
+        {
+          id: 71,
+          name: 'Therapy',
+        },
+        {
+          id: 72,
+          name: 'Meditation',
+        }
+      ]
     },
 
     {
