@@ -30,22 +30,22 @@ after(:users) do
           text_color: '397cef',
           background_color: 'dbf9fa',
         },
-        {
-          id: 11,
-          name: 'Morning Ritual'
-        },
-        {
-          id: 12,
-          name: 'Good Meal'
-        },
-        {
-          id: 13,
-          name: 'Bad Meal'
-        },
-        {
-          id: 19,
-          name: 'Turn off Ritual'
-        },
+        # {
+        #   id: 11,
+        #   name: 'Morning Ritual'
+        # },
+        # {
+        #   id: 12,
+        #   name: 'Good Meal'
+        # },
+        # {
+        #   id: 13,
+        #   name: 'Bad Meal'
+        # },
+        # {
+        #   id: 19,
+        #   name: 'Turn off Ritual'
+        # },
       ]
     },
 
@@ -66,6 +66,14 @@ after(:users) do
         {
           id: 23,
           name: 'Youtube'
+        },
+        {
+          id: 24,
+          name: 'NaRadio'
+        },
+        {
+          id: 25,
+          name: 'Freelas'
         },
       ]
     },
