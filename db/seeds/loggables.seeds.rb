@@ -30,6 +30,14 @@ after(:users) do
           text_color: '397cef',
           background_color: 'dbf9fa',
         },
+        {
+          id: 11,
+          name: 'Wakeup'
+        },
+        {
+          id: 12,
+          name: 'Before Bed'
+        },
         # {
         #   id: 11,
         #   name: 'Morning Ritual'
